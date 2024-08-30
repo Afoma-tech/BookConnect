@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import SearchIcon from '@mui/icons-material/Search';
+import Grid from '@mui/material/Grid2';
 import {
-  AppBar as MuiAppBar, Drawer as MuiDrawer,
-  Box, Toolbar, IconButton, Typography, Divider, List, Container, Paper, Grid
+  AppBar as MuiAppBar, Drawer as MuiDrawer, InputBase,
+  Box, Toolbar, IconButton, Typography, Divider, List, Container, Paper, Select, InputLabel
 } from '@mui/material';
 
 import { mainListItems, secondaryListItems } from './listItems';
@@ -55,6 +57,47 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(3),
+    width: '80%',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  right: 0, // Move the icon to the right
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+}));
+
 export default function DashboardLayout({ children }) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -81,15 +124,25 @@ export default function DashboardLayout({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
+
+          <InputLabel id="demo-simple-select-label">Book</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Book"
           >
-            Dashboard
-          </Typography>
+          </Select>
+
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Searh for books"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -101,6 +154,15 @@ export default function DashboardLayout({ children }) {
             px: [1],
           }}
         >
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1, fontWeight: 'bold' }}
+          >
+            BookConnect
+          </Typography>
           <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
           </IconButton>
@@ -108,8 +170,8 @@ export default function DashboardLayout({ children }) {
         <Divider />
         <List component="nav">
           {mainListItems}
-          <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
+          {/* <Divider sx={{ my: 1 }} /> */}
+          {/* {secondaryListItems} */}
         </List>
       </Drawer>
       <Box

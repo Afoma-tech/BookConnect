@@ -15,25 +15,25 @@ export const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="My Profile" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="My Library" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Book Clubs" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Challenges" />
     </ListItemButton>
   </React.Fragment>
 );
